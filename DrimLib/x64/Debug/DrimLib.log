@@ -1,0 +1,10 @@
+﻿  Viewer.cpp
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(106,24): warning C4804: '<' : utilisation risquée du type 'bool' dans l'opération
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(167,24): warning C4804: '<' : utilisation risquée du type 'bool' dans l'opération
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(200,21): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(205,18): warning C4244: '=' : conversion de 'int' en 'float', perte possible de données
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(221,24): warning C4244: 'initialisation' : conversion de 'double' en 'float', perte possible de données
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(293,40): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(302,11): warning C4244: 'initialisation' : conversion de 'const float' en 'int', perte possible de données
+D:\programme\C++\Dragon Image\DrimLib\Viewer.cpp(303,11): warning C4244: 'initialisation' : conversion de 'const float' en 'int', perte possible de données
+  DrimLib.vcxproj -> D:\programme\C++\Dragon Image\x64\Debug\DrimLib.lib

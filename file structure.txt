@@ -1,0 +1,17 @@
+this is the plan of an exemple drim file, 
+in a real file it'll be in binary, not in ascii
+
+ |====================================================================
+ |content  |  first byte |// Description    -> content (hex)
+ |(ascii)  |   index     |//                
+ |====================================================================
+ |DRIM     |      0      |// Magic key      -> 0x44; 0x52; 0x49; 0x4D;
+ |01       |      4      |// Version 0.1    -> 0x00; 0x01
+ |1080     |      6      |// X uint16       -> 0x04; 0x38
+ |720      |      8      |// Y uint16       -> 0x02; 0xD0
+ |TAGS     |    ~10      |// Tags section   -> 0x54; 0x41; 0x47; 0x53
+ |         |             |   start    
+ |...      |     ..      |// tags           -> 
+ |~        |             |// start pixels   -> 0x7E
+ |...      |     ..      |// pixels         -> 0xFF;0xFF;0xFF;0x00;0x00;0x00;0xFF;0xFF;0xFF;0x00;0x00;0x00;
+ |@        |     ..      |// end pixels     -> Ox40

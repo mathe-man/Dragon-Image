@@ -1,0 +1,89 @@
+This is a planned structure of the program (DrimLib)
+It does not represent the actual code, only the aim of developpement.
+
+
+type*: 	it can be a 'constructor', a '~constructor'(de-constructor), 
+	a 'method' or an 'attribut'
+
+Class		(type*)Name:		Descriptions
+File
+ |- - - - - - -->[static](method) CreateFile
+ |- - - - - - -->[static](method) OpenFile
+ |
+ |- - - - - - -->(attribut)file_path	Path of the file represented by this class instance
+ |- - - - - - -->(attribut)binairies	Make change on it to avoid writting too many time in the file.
+ |
+ |- - - - - - -->(method)ReadFile	Read the file binairies
+ |- - - - - - -->(method)UpdateBin	Read the file binairies then put the result in binairies
+ |- - - - - - -->(method)WriteFile	Write binairies in the file: data
+ |- - - - - - -->(method)UpdateFile	
+ |
+ |- - - - - - -->(method)Push		Write in binairies: content, index
+ |- - - - - - -->(method)PushBack	Write at the end of binairies: content
+ |- - - - - - -->(method)PushFront	Write at the begin of binairies: content
+ |
+ |- - - - - - -->(method)Pop		Remove a number of element in binairies: index, count
+ |- - - - - - -->(method)Pop		Remove one element of binairies: index
+ |- - - - - - -->(method)PopBack	Remove a number of element a the end of binairies: count
+ |- - - - - - -->(method)PopBack	Remove the last element of binaries
+ |- - - - - - -->(method)PopFront	Remove a number of element a the start of binairies: count
+ |- - - - - - -->(method)PopFront	Remove the first element of binairies
+ |
+ |- - - - - - -->(method)Get		Return a serie of uint8_t found at the specified address: index, count
+ |- - - - - - -->(method)GetFront	
+ |- - - - - - -->(method)GetBack
+ #
+
+
+
+**-------**
+This class only provide method to interact with is content, 
+and no drim formating or anything else like that.
+The DrimFile class is aimed to do all this signature, tags and formating stuff
+and the File methods are here to simplify interaction with the file.
+**-------**
+
+
+
+Class		(type*)Name			Descriptions
+DrimFile	
+ |- - - - - - -->(attribut)file			The file linked with this instance
+ |
+ |- - - - - - -->[static](method)CreateDrimFile	
+ |- - - - - - -->[static](method)OpenDrimFile	
+ |
+ |- - - - - - -->(method)SetSignature		Add the DRIM signature to the file header
+ |- - - - - - -->(method)SetVersion		Add a version and subversion number to the file header
+ |- - - - - - -->(method)SetDimension		Add the dimensions infos to the file header
+ |
+ |- - - - - - -->(method)WriteTag		Add a tag in the tags section: identifier, value
+ |- - - - - - -->(method)GetVersion		Return the version.subversion
+ |- - - - - - -->(method)GetGlobalVersion	Return the version alone
+ |- - - - - - -->(method)GetSubVersion		Return the subversion alone
+ |
+ |- - - - - - -->[private](method)GetPixelSectionStartIndex()
+ |- - - - - - -->[private](method)GetPixelSectionEndIndex()
+ |
+ |
+ |- - - - - - -->[static][private]actual_drim_version
+ #
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
