@@ -127,7 +127,8 @@ int main()
 
 	Viewer view;
 	view.Init();
-	view.OpenWiewer(view.GetByteTexture_RGB(file.file->Get(file.GetPixelSectionStartIndex(), 540* 360*3), 540, 360));
+	std::cout << 540 * 360 * 3 << " 0 " << file.GetPixelSectionContent().size();
+	view.OpenWiewer(view.GetByteTexture_RGB(file.GetPixelSectionContent(), 540, 360));
 
 	return 0;
 }

@@ -33,6 +33,10 @@ public:
 	int GetPixelSectionStartIndex();
 	int GetPixelSectionEndIndex();
 
+	std::vector<uint8_t> GetPixelSectionContent()
+	{
+		return file->Get(GetPixelSectionStartIndex(), GetPixelSectionEndIndex() - GetPixelSectionStartIndex());
+	}
 
 	DrimFile();
 	~DrimFile();

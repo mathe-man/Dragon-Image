@@ -6,6 +6,16 @@
 *.lo
 *.o
 *.obj
+*.pch
+*.pdb
+*.idb
+*.ipch
+*.tlog
+*.log
+*.sdf
+*.opensdf
+*.VC.db
+*.VC.opendb
 
 # Precompiled Headers
 *.gch
@@ -16,9 +26,12 @@
 *.dylib
 *.dll
 
-# Fortran module files
-*.mod
-*.smod
+# Build directories
+[Bb]in/
+[Oo]bj/
+Build/
+Debug/
+Release/
 
 # Compiled Static libraries
 *.lai
@@ -30,3 +43,8 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio files
+.vs/
+*.user
+*.suo

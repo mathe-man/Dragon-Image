@@ -26,13 +26,21 @@ public:
     SDL_Window* window;
 
 private:
-    void CalculateResize(SDL_FRect* pixel_area, SDL_FRect* ui_area);
+    void CalculateResize();
     void UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average);
 
     void MouseEvent(const SDL_Event* event);
+
+    // return true if the (x,y) position is situed in the rect)
+    bool IsPositionInRect(const SDL_FRect* rect, int x, int y);
+
     void MoveCursor(int row, int col) {
         std::cout << "\x1b[" << row << ";" << col << "H";
     }
 
-    float pixel_area_percentage = 0.75;
+    // UI properties
+    float pixel_area_percentage = 0.9;
+
+    SDL_FRect* image_area;
+    SDL_FRect* ui_area;
 };

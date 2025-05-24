@@ -27,9 +27,6 @@
     <ClInclude Include="File.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="pdFile.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Viewer.cpp">
@@ -42,9 +39,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="pdFile.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
   </ItemGroup>
