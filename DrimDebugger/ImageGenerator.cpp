@@ -5,13 +5,6 @@
 
 
 
-std::vector<uint8_t> GradientGenerator::GenerateBlueGradientImage(int w, int h) {//150 200 255
-	return GradientGenerator::GenerateGradientImage(w, h, 0, 0, 0, 150, 200, 255);
-}
-std::vector<uint8_t> GradientGenerator::GenerateYellowToBlueGradientImage(int w, int h)
-{
-	return GradientGenerator::GenerateGradientImage(w, h, 255, 255, 0, 0, 0, 255);
-}
 
 
 std::vector<uint8_t> GradientGenerator::GenerateGradientImage(int w, int h,
