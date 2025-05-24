@@ -39,8 +39,12 @@ private:
     }
 
     // UI properties
-    float pixel_area_percentage = 0.9;
+    float pixel_area_percentage = 0.8;
 
+    // UI areas
     SDL_FRect* image_area;
     SDL_FRect* ui_area;
+
+    // UI elements
+    SDL_FRect button = {0.0f, 0.0f, 0.0f, 0};
 };

@@ -231,7 +231,7 @@ bool Viewer::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
     CalculateResize();
 
 
-    SDL_SetRenderDrawColor(renderer, 10, 0, 100, 255);
+
     Uint64 lastFrame = SDL_GetTicksNS();
     float fps = 0.0f;
     float fps_average = 0.0f;
@@ -244,7 +244,9 @@ bool Viewer::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
             if (event.type == SDL_EVENT_WINDOW_RESIZED)
+            {
                 CalculateResize();
+            }
 
             // The clic appen where the mouse is released
             if (event.type == SDL_EVENT_MOUSE_BUTTON_UP)
@@ -257,9 +259,11 @@ bool Viewer::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
         SDL_SetRenderDrawColor(renderer, 10, 0, 100, 255);
         SDL_RenderClear(renderer);
 
-
         // Draw texture
         SDL_RenderTexture(renderer, texture, NULL, image_area);
+        // Draw button
+        SDL_SetRenderDrawColor(renderer, 150, 255, 0, 255);
+        SDL_RenderFillRect(renderer, &button);
 
         // Update screen
         SDL_RenderPresent(renderer);
@@ -290,6 +294,12 @@ void Viewer::CalculateResize()
     ui_area->y = 0;
     ui_area->w = win_w - image_area->w;
     ui_area->h = win_h;
+
+    // Button in the UI
+    button.x = ui_area->x + ui_area->w * 0.1f;
+    button.y = ui_area->y + ui_area->h * 0.2f;
+    button.w = ui_area->w * 0.8;
+    button.h = ui_area->h * 0.08;
 }
 void Viewer::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
 {
@@ -303,7 +313,7 @@ void Viewer::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
     if (deltaSec > 0.0f) {
         *fps = 1.0f / deltaSec;
     }
-    *fps_average = 0.95 * *fps_average + 0.05 * *fps;
+    *fps_average = 0.995 * *fps_average + 0.005 * *fps;
 
     // Show result for debug
     MoveCursor(2, 1);
@@ -318,8 +328,9 @@ void Viewer::MouseEvent(const SDL_Event* event)
     int y = event->button.y;
 
     std::string rect = ""; // The name of the rect where the cursor is
-    rect += IsPositionInRect(image_area, x, y) ? "image_area": "";
-    rect += IsPositionInRect(ui_area, x, y)    ? "ui_area": "";
+    rect += IsPositionInRect(image_area, x, y) ? "image_area, ": "";
+    rect += IsPositionInRect(ui_area, x, y)    ? "ui_area, ": "";
+    rect += IsPositionInRect(&button, x, y)    ? "button, ": "";
 
     if (event->button.button == SDL_BUTTON_LEFT)
     {
@@ -344,7 +355,7 @@ bool Viewer::IsPositionInRect(const SDL_FRect* rect, int x, int y)
     if (x > rect->x && x < (rect->x + rect->w))
         if (y > rect->y && y < (rect->y + rect->h))
             return true;
-    
+
     return false;
 }
 
