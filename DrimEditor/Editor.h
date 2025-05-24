@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <iostream>
 #include <vector>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
@@ -7,7 +8,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-class Viewer {
+class Editor {
 public:
     bool Init(std::string title, int w, int h);
     bool Init(std::string title);

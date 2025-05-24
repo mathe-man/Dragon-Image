@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)DrimLib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DrimLib;$(SolutionDir)DrimDebugger;$(SolutionDir)DrimEditor</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

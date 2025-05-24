@@ -7,7 +7,7 @@
 #include <iostream>
 #include "Viewer.h"
 
-bool Viewer::Init(std::string title, int w, int h)
+bool Editor::Init(std::string title, int w, int h)
 {
     // Init SDL (only video subsystem)
     if (SDL_Init(SDL_INIT_VIDEO) != true) {
@@ -48,22 +48,22 @@ bool Viewer::Init(std::string title, int w, int h)
 
     return true;
 }
-bool Viewer::Init(std::string title)
+bool Editor::Init(std::string title)
 {
     return Init(title, 1080, 720);
 }
-bool Viewer::Init(int w, int h)
+bool Editor::Init(int w, int h)
 {
-    return Init("Drim Viewer", w, h);
+    return Init("Drim Editor", w, h);
 }
-bool Viewer::Init()
+bool Editor::Init()
 {
-    return Init("Drim Viewer");
+    return Init("Drim Editor");
 }
 
 
 
-SDL_Texture* Viewer::GetPngTexture(std::string path)
+SDL_Texture* Editor::GetPngTexture(std::string path)
 {
 
     // Load file into a texture
@@ -77,7 +77,7 @@ SDL_Texture* Viewer::GetPngTexture(std::string path)
 
     return texture;
 }
-SDL_Texture* Viewer::GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int width, int height)
+SDL_Texture* Editor::GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int width, int height)
 {
     //  Check parameters
     if (bytes.size() != (size_t)(width * height) || width <= 0 || height <= 0) {
@@ -140,7 +140,7 @@ SDL_Texture* Viewer::GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int 
 }
 
 
-SDL_Texture* Viewer::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int width, int height)
+SDL_Texture* Editor::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int width, int height)
 {
     //  Check parameters
     if (bytes.size()/3 != (size_t)(width * height) || width <= 0 || height <= 0) {
@@ -202,7 +202,7 @@ SDL_Texture* Viewer::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int w
 }
 
 
-bool Viewer::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
+bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
 {
     // Check texture
     if (!texture)
@@ -279,7 +279,7 @@ bool Viewer::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
     return true;
 }
 
-void Viewer::CalculateResize()
+void Editor::CalculateResize()
 {
     int win_w, win_h;
     SDL_GetWindowSize(window, &win_w, &win_h);
@@ -301,7 +301,7 @@ void Viewer::CalculateResize()
     button.w = ui_area->w * 0.8;
     button.h = ui_area->h * 0.08;
 }
-void Viewer::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
+void Editor::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
 {
 
     // Calcul du delta temps
@@ -322,7 +322,7 @@ void Viewer::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
 }
 
 
-void Viewer::MouseEvent(const SDL_Event* event)
+void Editor::MouseEvent(const SDL_Event* event)
 {
     int x = event->button.x;
     int y = event->button.y;
@@ -349,7 +349,7 @@ void Viewer::MouseEvent(const SDL_Event* event)
         
     }
 }
-bool Viewer::IsPositionInRect(const SDL_FRect* rect, int x, int y)
+bool Editor::IsPositionInRect(const SDL_FRect* rect, int x, int y)
 {
     // Check X axis
     if (x > rect->x && x < (rect->x + rect->w))
@@ -360,7 +360,7 @@ bool Viewer::IsPositionInRect(const SDL_FRect* rect, int x, int y)
 }
 
 
-void Viewer::Free()
+void Editor::Free()
 {
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

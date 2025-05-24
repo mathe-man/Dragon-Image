@@ -20,5 +20,5 @@
 
 int main()
 {
-	
+	Debug::DebugViewer();
 }
