@@ -20,13 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrimFile.h" />
-    <ClInclude Include="DrimParser.h" />
     <ClInclude Include="File.h" />
     <ClInclude Include="Viewer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DrimFile.cpp" />
-    <ClCompile Include="DrimParser.cpp" />
     <ClCompile Include="File.cpp" />
     <ClCompile Include="Viewer.cpp" />
   </ItemGroup>

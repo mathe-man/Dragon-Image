@@ -21,9 +21,6 @@
     <ClInclude Include="DrimFile.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-    <ClInclude Include="DrimParser.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
     <ClInclude Include="File.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
@@ -33,9 +30,6 @@
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="DrimFile.cpp">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="DrimParser.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
