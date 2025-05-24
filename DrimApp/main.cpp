@@ -108,7 +108,7 @@ public:
 			<< "Size: " << f->binairies.size() << std::endl
 			<< "Raw hex content:" << std::endl;
 
-		DrimParser::CoutHexArray(f->binairies, 4);
+		//DrimParser::CoutHexArray(f->binairies, 4);
 
 		std::cout << std::endl << std::endl;
 
@@ -122,12 +122,11 @@ public:
 
 int main()
 {
-	DrimFile file = DrimFile::OpenDrimFile("image.drim");
+	DrimFile* file = DrimFile::CreateDrimFile_ptr("a.drim", 5, 5);
+	file->WriteTag(0xBB, { 0xCC, 0x12, 0x21});
+	file->file->UpdateFile();
 
-	Viewer view;
-	view.Init();
-	std::cout << 540 * 360 * 3 << " 0 " << file.GetPixelSectionContent().size();
-	view.OpenWiewer(view.GetByteTexture_RGB(file.GetPixelSectionContent(), 540, 360));
-
-	return 0;
+	std::cout << std::hex << int(file->SearchTag(0xBB)[0]) << std::endl;
+	std::cout << std::hex << int(file->SearchTag(0xBB)[1]) << std::endl;
+	std::cout << std::hex << int(file->SearchTag(0xBB)[2]) << std::endl;
 }

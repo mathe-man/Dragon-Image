@@ -116,16 +116,36 @@ void DrimFile::WriteTag(std::vector<uint8_t> identifier, std::vector<uint8_t> va
 }
 void DrimFile::WriteTag(std::vector<uint8_t> identifier, uint8_t value)
 {
-	WriteTag(identifier, { value });
+	WriteTag(std::vector<uint8_t>{ identifier }, std::vector<uint8_t>{ value });
 }
 void DrimFile::WriteTag(uint8_t identifier, std::vector<uint8_t> value)
 {
-	WriteTag({ identifier }, value);
+	WriteTag(std::vector<uint8_t>{ identifier }, std::vector<uint8_t>{ value });
 }
 void DrimFile::WriteTag(uint8_t identifier, uint8_t value)
 {
-	WriteTag({ identifier }, { value });
+	WriteTag(std::vector<uint8_t>{ identifier }, std::vector<uint8_t>{ value });
 }
+
+
+std::vector<uint8_t> DrimFile::SearchTag(std::vector<uint8_t> tag)
+{
+	int tag_index = tag.size();
+	int tag_data_size;
+	std::vector<uint8_t> bins = file->binairies;
+
+	// TODO change int i = 0 to the start of TAGS section
+	for (int i = 0; i < int(bins.size()) - tag.size(); i++)
+	{
+		if (file->Get(i, tag.size()) == tag)
+			tag_index = i;
+	}
+
+	tag_data_size = tag_index + tag.size();
+	std::vector<uint8_t> data = file->Get(tag_index + tag.size() + 1, file->Get(tag_data_size));
+	return data;
+}
+
 
 void DrimFile::AddToPixelSection(std::vector<uint8_t> value)
 {

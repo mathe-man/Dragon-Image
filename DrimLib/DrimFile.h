@@ -27,6 +27,12 @@ public:
 	void WriteTag(uint8_t identifier, std::vector<uint8_t> value);
 	void WriteTag(uint8_t identifier, uint8_t value);
 
+	std::vector<uint8_t> SearchTag(std::vector<uint8_t> identifier);
+	std::vector<uint8_t> SearchTag(uint8_t identifier) { return SearchTag(std::vector<uint8_t>{ identifier }); }
+	
+
+
+
 	void AddToPixelSection(std::vector<uint8_t> value);
 	void AddToPixelSection(uint8_t value);
 	
