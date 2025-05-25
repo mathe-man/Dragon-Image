@@ -5,7 +5,7 @@
 
 #include <iomanip>
 #include <iostream>
-#include "Viewer.h"
+#include "Editor.h"
 
 bool Editor::Init(std::string title, int w, int h)
 {
@@ -14,7 +14,6 @@ bool Editor::Init(std::string title, int w, int h)
         std::cerr << "SDL_Init Video error: " << SDL_GetError() << std::endl;
         //return false;  // On arrête vraiment si init échoue
     }
-
 
     // Create SDL_Window
     window = SDL_CreateWindow(title.c_str(), w, h, SDL_WINDOW_RESIZABLE);

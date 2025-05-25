@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 #include "ImageGenerator.h"
-#include "Viewer.h"
+#include "Editor.h"
 #include "DrimFile.h"
 #include "File.h"
 
@@ -104,11 +104,11 @@ void Debug::CoutHexArray(std::vector<uint8_t> data, int column_number, bool show
     std::cout << std::dec << std::nouppercase << std::setfill(' ');
 }
 
-int Debug::DebugViewer()
+int Debug::DebugEditor()
 {
 	// Init a viewer
-	Viewer v;
-	v.Init(1080, 720);
+	Editor editor;
+	editor.Init(1080, 720);
 
 
 	/*  === Some gray scale images === */
@@ -137,10 +137,10 @@ int Debug::DebugViewer()
 										  255, 0, 0, 255,
 										  0, 255, 255, 0, };
 
-	v.OpenWiewer(v.GetByteTexture_Gray(big_image, 1080, 720));
-	v.OpenWiewer(v.GetByteTexture_Gray(rand_image, 1080, 720));
-	v.OpenWiewer(v.GetByteTexture_Gray(image_2by2, 2, 2));
-	v.OpenWiewer(v.GetByteTexture_Gray(image_4by4, 4, 4));
+	editor.OpenWiewer(editor.GetByteTexture_Gray(big_image, 1080, 720));
+	editor.OpenWiewer(editor.GetByteTexture_Gray(rand_image, 1080, 720));
+	editor.OpenWiewer(editor.GetByteTexture_Gray(image_2by2, 2, 2));
+	editor.OpenWiewer(editor.GetByteTexture_Gray(image_4by4, 4, 4));
 
 
 	/*  === Various RGB images vector ===  */
@@ -166,14 +166,14 @@ int Debug::DebugViewer()
 	std::vector<uint8_t> rgb_red_blue_gradient = GradientGenerator::GenerateGradientImage(540, 360, 255, 0, 0, 0, 0, 255);
 
 
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_image_2by2, 2, 2));
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_image_3by2, 3, 2));
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_image_4by4, 4, 4));
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_blue_gradient, 540, 360));
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_yellow_gradient, 540, 360));
-	v.OpenWiewer(v.GetByteTexture_RGB(rgb_red_blue_gradient, 540, 360));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_2by2, 2, 2));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_3by2, 3, 2));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_4by4, 4, 4));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_blue_gradient, 540, 360));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_yellow_gradient, 540, 360));
+	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_red_blue_gradient, 540, 360));
 
-	v.Free();
+	editor.Free();
 
 	return 0;
 }

@@ -10,7 +10,7 @@
 
 
 #include "ImageGenerator.h"
-#include "Viewer.h"
+#include "Editor.h"
 #include "DrimFile.h"
 #include "File.h"
 #include "Debug.h";
@@ -20,5 +20,5 @@
 
 int main()
 {
-	Debug::DebugViewer();
+	Debug::DebugEditor();
 }
