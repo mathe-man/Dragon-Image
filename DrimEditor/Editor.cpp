@@ -215,6 +215,9 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
     float window_ratio = (float)texture->w * 1.25 / (float)texture->h;
     SDL_SetWindowAspectRatio(window, window_ratio, window_ratio);
 
+    // TODO fix the ratio 
+	SDL_SetWindowSize(window, texture->w * 1.25, texture->h * 1.25);
+
     SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
 
