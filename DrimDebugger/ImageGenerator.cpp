@@ -1,7 +1,7 @@
 #include <cstdint>
 #include <vector>
 
-#include "ImageGenerator.h"
+#include "DrimDebugger/ImageGenerator.h"
 
 
 

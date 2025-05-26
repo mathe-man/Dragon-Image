@@ -1,7 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include "DrimFile.h"
+#include "DrimLib/DrimFile.h"
 
 
 DrimFile* DrimFile::CreateDrimFile_ptr(std::string path, uint16_t x_size, uint16_t y_size)
