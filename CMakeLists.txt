@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 # Solution name
-project(Dragon Image)
+project("Dragon Image")
 
 # Define SDL3 installation folder
 set(SDL3_ROOT "C:/Libs/SDL3")
@@ -32,4 +32,5 @@ add_subdirectory(DrimApp)
 
 #    Add a new project lib:
 # Add the project folder up-there, this project must have a CMakeLists.txt inside,
+# then don't forget to add it in the projects that need it,
 # take exemple on DrimEditor and is CMakeLists.txt file.

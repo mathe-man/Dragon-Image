@@ -1,13 +1,13 @@
-#include "Debug.h"
+#include "DrimDebugger/Debug.h"
 #include <iostream>
 #include <iomanip>
 #include <bitset>
 #include <string>
 #include <vector>
-#include "ImageGenerator.h"
-#include "Editor.h"
-#include "DrimFile.h"
-#include "File.h"
+#include "DrimDebugger/ImageGenerator.h"
+#include "DrimEditor/Editor.h"
+#include "DrimLib/DrimFile.h"
+#include "DrimLib/File.h"
 
 void Debug::CoutHexArray(std::vector<uint8_t> data, int column_number, bool show_bin)
 {
