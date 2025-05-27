@@ -27,11 +27,11 @@
 *.dll
 
 # Build directories
-[Bb]in/
+[Bb]in/q
 [Oo]bj/
-Build/
-Debug/
-Release/
+[Bb]uild/
+[Dd]ebug/
+[Rr]elease/
 
 # Compiled Static libraries
 *.lai
