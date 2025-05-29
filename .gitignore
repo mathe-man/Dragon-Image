@@ -39,6 +39,9 @@
 *.a
 *.lib
 
+# extern librairies
+.extern/
+
 # Executables
 *.exe
 *.out
