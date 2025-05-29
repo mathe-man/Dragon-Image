@@ -1,4 +1,5 @@
 #include <SDL3/SDL.h>
+#include <SDL3/SDL_opengl.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>   
 #include <string>
@@ -6,6 +7,10 @@
 #include <iomanip>
 #include <iostream>
 #include "DrimEditor/Editor.h"
+
+#include "imgui.h"
+#include "backends/imgui_impl_sdl3.h"
+#include "backends/imgui_impl_opengl3.h"
 
 bool Editor::Init(std::string title, int w, int h)
 {
@@ -367,4 +372,101 @@ void Editor::Free()
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+
+
+
+
+int Editor::TestImGui()
+{
+    // SDL init
+    SDL_Init(SDL_INIT_VIDEO);
+    SDL_Window* window = SDL_CreateWindow("ImGui Docking",
+        800, 600,
+        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+    SDL_GL_MakeCurrent(window, gl_context);
+    SDL_GL_SetSwapInterval(1);
+
+    // ImGui init
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGuiIO& io = ImGui::GetIO();
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // <--- Activate Docking
+    ImGui::StyleColorsDark();
+
+    ImGui_ImplSDL3_InitForOpenGL(window, gl_context);
+    ImGui_ImplOpenGL3_Init("#version 330");
+
+    bool running = true;
+    while (running) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            ImGui_ImplSDL3_ProcessEvent(&event);
+            if (event.type == SDL_EVENT_QUIT)
+                running = false;
+        }
+
+        // Frame ImGui
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplSDL3_NewFrame();
+        ImGui::NewFrame();
+
+        // Main window used to contain the dockspace
+        {
+            static bool opt_fullscreen = true;
+            static bool opt_padding = false;
+            ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
+
+            if (opt_fullscreen) {
+                const ImGuiViewport* viewport = ImGui::GetMainViewport();
+                ImGui::SetNextWindowPos(viewport->WorkPos);
+                ImGui::SetNextWindowSize(viewport->WorkSize);
+                ImGui::SetNextWindowViewport(viewport->ID);
+                window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
+                window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
+            }
+
+            if (!opt_padding)
+                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
+            ImGui::Begin("Main DockSpace", nullptr, window_flags);
+
+            if (!opt_padding)
+                ImGui::PopStyleVar();
+
+            // DockSpace
+            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
+            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
+
+            ImGui::End();
+        }
+
+        // dockable window
+        ImGui::Begin("My window");
+        if (ImGui::Button("Click here!")) {
+            SDL_Log("Boutton cliked!");
+        }
+        ImGui::End();
+
+        // Render
+        ImGui::Render();
+        ImGuiIO& io = ImGui::GetIO();
+        glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT);
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+        SDL_GL_SwapWindow(window);
+    }
+
+    // Cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplSDL3_Shutdown();
+    ImGui::DestroyContext();
+    SDL_GL_DestroyContext(gl_context);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    return 0;
 }

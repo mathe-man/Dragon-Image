@@ -19,6 +19,8 @@ include_directories(${CMAKE_SOURCE_DIR})
 add_subdirectory(DrimLib)
 add_subdirectory(DrimEditor)
 add_subdirectory(DrimDebugger)
+# Add Dear ImGui
+add_subdirectory(extern/imgui)
 
 # Add app (executable project)
 add_subdirectory(DrimApp)

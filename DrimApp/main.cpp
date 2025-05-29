@@ -39,6 +39,6 @@ void EnableAnsiEscapeCodes() {
 
 int main()
 {
-    EnableAnsiEscapeCodes();
-	Debug::DebugEditor();
+    Editor e;
+    e.TestImGui();
 }
