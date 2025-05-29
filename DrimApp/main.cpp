@@ -9,11 +9,11 @@
 
 
 
-#include "ImageGenerator.h"
-#include "Editor.h"
-#include "DrimFile.h"
-#include "File.h"
-#include "Debug.h";
+#include "DrimDebugger/ImageGenerator.h"
+#include "DrimEditor/Editor.h"
+#include "DrimLib/DrimFile.h"
+#include "DrimLib/File.h"
+#include "DrimDebugger/Debug.h";
 
 
 #ifdef _WIN32

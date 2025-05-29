@@ -5,7 +5,7 @@
 
 #include <iomanip>
 #include <iostream>
-#include "Editor.h"
+#include "DrimEditor/Editor.h"
 
 bool Editor::Init(std::string title, int w, int h)
 {
