@@ -423,6 +423,11 @@ int Editor::ExempleImGui()
 
     /*   === MAIN LOOP ===   */
     bool running = true;
+
+    Uint64 lastFrame = SDL_GetTicksNS();
+    float fps = 0.0f;
+    float fps_average = 0.0f;
+
     while (running)
     {
         // Get SDL events (keyboard, mouse, ...)
@@ -433,19 +438,25 @@ int Editor::ExempleImGui()
                 running = false;
         }
 
+        // Update fps info in console
+        UpdateFpsInfos(&lastFrame, &fps, &fps_average);
+        
+        
         /* -- Start new ImGui frame -- */
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
 
-        /* -- Exemple of a ImGui window -- */
-        ImGui::Begin("A window");
-
+        /* -- Exemple of a ImGui windows -- */
+        ImGui::Begin("A first window");
         ImGui::Text("Welcome here !");
-
         ImGui::End();
 
+        // A second window to test docking
+        ImGui::Begin("A second window");
+        ImGui::Text("You can dock it!");
+        ImGui::End();
 
         /* -- Show -- */
         ImGui::Render();
