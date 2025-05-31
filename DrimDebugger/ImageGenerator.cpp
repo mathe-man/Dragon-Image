@@ -31,3 +31,13 @@ std::vector<uint8_t> GradientGenerator::GenerateGradientImage(int w, int h,
 
 	return rgb_image;
 }
+
+std::vector<uint8_t> GradientGenerator::GenerateGradientImage(int w, int h,
+	uint8_t start,
+	uint8_t end
+)
+{
+	return GradientGenerator::GenerateGradientImage(x, h,
+		start, start, start,
+		end, end, end);
+}
