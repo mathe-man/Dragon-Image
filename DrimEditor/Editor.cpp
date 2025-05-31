@@ -1,16 +1,24 @@
+// SDL3 includes
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_opengl.h>
 #include <SDL3_image/SDL_image.h>
-#include <SDL3_ttf/SDL_ttf.h>   
-#include <string>
 
-#include <iomanip>
-#include <iostream>
-#include "DrimEditor/Editor.h"
-
+// ImGui includes
 #include "imgui.h"
 #include "backends/imgui_impl_sdl3.h"
 #include "backends/imgui_impl_opengl3.h"
+
+#include "extern/stb_image.h"
+
+// Standard includes
+#include <string>
+#include <iomanip>
+#include <iostream>
+
+// Solution includes
+#include "DrimEditor/Editor.h"
+
+
 
 bool Editor::Init(std::string title, int w, int h)
 {
@@ -378,29 +386,46 @@ void Editor::Free()
 
 
 
-int Editor::TestImGui()
+int Editor::ExempleImGui()
 {
-    // SDL init
+    /* == = INITIALISATION == = */
+
+    // Basic SDL init
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("ImGui Docking",
-        800, 600,
-        SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    SDL_Window* window = SDL_CreateWindow("ImGui window", 1024, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    // Create OpenGL context associated with the window
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
+    // Make this context current (necessary before any OpenGl or ImGui call)
     SDL_GL_MakeCurrent(window, gl_context);
+    // Enable VSync
     SDL_GL_SetSwapInterval(1);
 
-    // ImGui init
+    // Basic ImGui init
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
+    // Retrieve IO object
     ImGuiIO& io = ImGui::GetIO();
-    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable; // <--- Activate Docking
+    (void)io;   // Hide warning if io isn't used
+
+    // Enable docking
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+    // Apply dark theme
     ImGui::StyleColorsDark();
 
+
+    // Init ImGui backend for SDL3
     ImGui_ImplSDL3_InitForOpenGL(window, gl_context);
+    // Init ImGui backend for OpenGL with shader GLSL version 330
     ImGui_ImplOpenGL3_Init("#version 330");
 
+
+
+    /*   === MAIN LOOP ===   */
     bool running = true;
-    while (running) {
+    while (running)
+    {
+        // Get SDL events (keyboard, mouse, ...)
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
             ImGui_ImplSDL3_ProcessEvent(&event);
@@ -408,65 +433,51 @@ int Editor::TestImGui()
                 running = false;
         }
 
-        // Frame ImGui
+        /* -- Start new ImGui frame -- */
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
-        // Main window used to contain the dockspace
-        {
-            static bool opt_fullscreen = true;
-            static bool opt_padding = false;
-            ImGuiWindowFlags window_flags = ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoDocking;
 
-            if (opt_fullscreen) {
-                const ImGuiViewport* viewport = ImGui::GetMainViewport();
-                ImGui::SetNextWindowPos(viewport->WorkPos);
-                ImGui::SetNextWindowSize(viewport->WorkSize);
-                ImGui::SetNextWindowViewport(viewport->ID);
-                window_flags |= ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove;
-                window_flags |= ImGuiWindowFlags_NoBringToFrontOnFocus | ImGuiWindowFlags_NoNavFocus;
-            }
+        /* -- Exemple of a ImGui window -- */
+        ImGui::Begin("A window");
 
-            if (!opt_padding)
-                ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+        ImGui::Text("Welcome here !");
 
-            ImGui::Begin("Main DockSpace", nullptr, window_flags);
-
-            if (!opt_padding)
-                ImGui::PopStyleVar();
-
-            // DockSpace
-            ImGuiID dockspace_id = ImGui::GetID("MyDockSpace");
-            ImGui::DockSpace(dockspace_id, ImVec2(0.0f, 0.0f), ImGuiDockNodeFlags_None);
-
-            ImGui::End();
-        }
-
-        // dockable window
-        ImGui::Begin("My window");
-        if (ImGui::Button("Click here!")) {
-            SDL_Log("Boutton cliked!");
-        }
         ImGui::End();
 
-        // Render
-        ImGui::Render();
-        ImGuiIO& io = ImGui::GetIO();
-        glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
-        glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+        /* -- Show -- */
+        ImGui::Render();
+        // Define OpenGL viewport to the ImGui window size
+        glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+
+        // Clear window with a color (RGBA)
+        glClearColor(0.1f, 0.1f, 0.1f, 1.0f); // Dark gray
+        glClear(GL_COLOR_BUFFER_BIT);
+        
+
+        // Draw ImGui interface with OpenGL
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        // Show the frame on screen
         SDL_GL_SwapWindow(window);
     }
 
-    // Cleanup
+    /* === Clean after close === */
+
+    // Clean OpenGL and SDL3
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL3_Shutdown();
+
+    // Destroy contexts
     ImGui::DestroyContext();
     SDL_GL_DestroyContext(gl_context);
+
+    // Close SDL window
     SDL_DestroyWindow(window);
+
+    // Clean SDL sub-systems
     SDL_Quit();
+
     return 0;
 }

@@ -23,7 +23,7 @@ public:
     bool OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end = false);
     void Free();
 
-    int TestImGui();
+    int ExempleImGui();
 
     SDL_Renderer* renderer;
     SDL_Window* window;
