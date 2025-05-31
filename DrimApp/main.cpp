@@ -39,6 +39,6 @@ void EnableAnsiEscapeCodes() {
 
 int main()
 {
-    Editor e;
-    e.TestImGui();
+    Editor editor;
+    return editor.ExempleImGui();
 }
