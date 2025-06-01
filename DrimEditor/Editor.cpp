@@ -44,19 +44,6 @@ bool Editor::Init(std::string title, int w, int h)
         return false;
     }
 
-    image_area = new SDL_FRect();
-    if (!image_area)
-    {
-        std::cerr << "Error while creating rect : image_area" << std::endl;
-        return false;
-    }
-    ui_area = new SDL_FRect();
-    if (!ui_area)
-    {
-        std::cerr << "Error while creating rect : ui_area" << std::endl;
-        return false;
-    }
-
 
     return true;
 }
@@ -243,7 +230,6 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
     bool running = true;
     SDL_Event event;
 
-    CalculateResize();
 
 
 
@@ -258,10 +244,7 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
         {
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
-            if (event.type == SDL_EVENT_WINDOW_RESIZED)
-            {
-                CalculateResize();
-            }
+            
 
             // The clic appen where the mouse is released
             if (event.type == SDL_EVENT_MOUSE_BUTTON_UP)
@@ -275,10 +258,7 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
         SDL_RenderClear(renderer);
 
         // Draw texture
-        SDL_RenderTexture(renderer, texture, NULL, image_area);
-        // Draw button
-        SDL_SetRenderDrawColor(renderer, 150, 255, 0, 255);
-        SDL_RenderFillRect(renderer, &button);
+        SDL_RenderTexture(renderer, texture, NULL, NULL);
 
         // Update screen
         SDL_RenderPresent(renderer);
@@ -294,28 +274,7 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
     return true;
 }
 
-void Editor::CalculateResize()
-{
-    int win_w, win_h;
-    SDL_GetWindowSize(window, &win_w, &win_h);
 
-    // Create the pixel area
-    image_area->x = 0;
-    image_area->y = 0;
-    image_area->w = win_w * pixel_area_percentage;
-    image_area->h = win_h;
-    // Remaining space for the UI
-    ui_area->x = image_area->w;
-    ui_area->y = 0;
-    ui_area->w = win_w - image_area->w;
-    ui_area->h = win_h;
-
-    // Button in the UI
-    button.x = ui_area->x + ui_area->w * 0.1f;
-    button.y = ui_area->y + ui_area->h * 0.2f;
-    button.w = ui_area->w * 0.8;
-    button.h = ui_area->h * 0.08;
-}
 void Editor::UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average)
 {
 
@@ -342,25 +301,21 @@ void Editor::MouseEvent(const SDL_Event* event)
     int x = event->button.x;
     int y = event->button.y;
 
-    std::string rect = ""; // The name of the rect where the cursor is
-    rect += IsPositionInRect(image_area, x, y) ? "image_area, ": "";
-    rect += IsPositionInRect(ui_area, x, y)    ? "ui_area, ": "";
-    rect += IsPositionInRect(&button, x, y)    ? "button, ": "";
-
+    
     if (event->button.button == SDL_BUTTON_LEFT)
     {
         MoveCursor(5, 1);
-        std::cout << "Last left click   : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " ) in " << rect << std::setw(15) << " \n";
+        std::cout << "Last left click   : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " )\n";
     }
     else if (event->button.button == SDL_BUTTON_RIGHT)
     {
         MoveCursor(6, 1);
-        std::cout << "Last right click  : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " ) in " << rect << std::setw(15) << " \n";
+        std::cout << "Last right click  : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " )\n";
     }
     else if (event->button.button == SDL_BUTTON_MIDDLE)
     {
         MoveCursor(7, 1);
-        std::cout << "Last middle click : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " ) in " << rect << std::setw(15) << " \n";
+        std::cout << "Last middle click : ( " << std::setw(4) << x << " ; " << std::setw(4) << y << " )\n";
         
     }
 }

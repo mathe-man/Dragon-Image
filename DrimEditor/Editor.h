@@ -29,7 +29,6 @@ public:
     SDL_Window* window;
 
 private:
-    void CalculateResize();
     void UpdateFpsInfos(Uint64* last_frame, float* fps, float* fps_average);
 
     void MouseEvent(const SDL_Event* event);
@@ -41,13 +40,4 @@ private:
         std::cout << "\x1b[" << row << ";" << col << "H";
     }
 
-    // UI properties
-    float pixel_area_percentage = 0.8;
-
-    // UI areas
-    SDL_FRect* image_area;
-    SDL_FRect* ui_area;
-
-    // UI elements
-    SDL_FRect button = {0.0f, 0.0f, 0.0f, 0};
 };

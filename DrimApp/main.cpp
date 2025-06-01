@@ -40,5 +40,13 @@ void EnableAnsiEscapeCodes() {
 int main()
 {
     Editor editor;
-    return editor.ExempleImGui();
+    editor.Init();
+
+    // Generate a gradient image vector
+    std::vector<uint8_t> gradient_vector;
+    gradient_vector = GradientGenerator::GenerateBlueGradientImage(1080, 720);
+    
+    SDL_Texture* gradient_texture = editor.GetByteTexture_RGB(gradient_vector, 1080, 720);
+
+    editor.OpenWiewer(gradient_texture, true);
 }
