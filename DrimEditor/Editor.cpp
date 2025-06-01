@@ -249,7 +249,7 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
 
     Uint64 lastFrame = SDL_GetTicksNS();
     float fps = 0.0f;
-    float fps_average = 0.0f;
+    float fps_average = 120.0f;
 
     // Window loop run
     while (running)
@@ -426,7 +426,7 @@ int Editor::ExempleImGui()
 
     Uint64 lastFrame = SDL_GetTicksNS();
     float fps = 0.0f;
-    float fps_average = 0.0f;
+    float fps_average = 60.0f;
 
     while (running)
     {
