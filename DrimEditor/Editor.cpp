@@ -212,11 +212,10 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
 
 
     // Calculate the new window ratio for the texture
-    float window_ratio = (float)texture->w * 1.25 / (float)texture->h;
+    float window_ratio = (float)texture->w / (float)texture->h;
     SDL_SetWindowAspectRatio(window, window_ratio, window_ratio);
 
-    // TODO fix the ratio 
-	SDL_SetWindowSize(window, texture->w * 1.25, texture->h * 1.25);
+	SDL_SetWindowSize(window, texture->w, texture->h);
 
     SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_NEAREST);
 
@@ -244,7 +243,6 @@ bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
         {
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
-            
 
             // The clic appen where the mouse is released
             if (event.type == SDL_EVENT_MOUSE_BUTTON_UP)
@@ -329,7 +327,6 @@ bool Editor::IsPositionInRect(const SDL_FRect* rect, int x, int y)
     return false;
 }
 
-
 void Editor::Free()
 {
     SDL_DestroyRenderer(renderer);
@@ -347,7 +344,7 @@ int Editor::ExempleImGui()
 
     // Basic SDL init
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow("ImGui window", 1024, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow("ImGui window", 1024, 720, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
     // Create OpenGL context associated with the window
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
     // Make this context current (necessary before any OpenGl or ImGui call)
@@ -388,9 +385,9 @@ int Editor::ExempleImGui()
         // Get SDL events (keyboard, mouse, ...)
         SDL_Event event;
         while (SDL_PollEvent(&event)) {
-            ImGui_ImplSDL3_ProcessEvent(&event);
-            if (event.type == SDL_EVENT_QUIT)
+            if (event.type == 528)      // TODO fix the enum bug
                 running = false;
+            ImGui_ImplSDL3_ProcessEvent(&event);
         }
 
         // Update fps info in console

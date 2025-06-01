@@ -8,6 +8,8 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "DrimLib/DrimFile.h"
+
 class Editor {
 public:
     bool Init(std::string title, int w, int h);
@@ -21,6 +23,7 @@ public:
     
 
     bool OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end = false);
+    bool OpenEditor(DrimFile file, int w = 1080, int h = 720);
     void Free();
 
     int ExempleImGui();

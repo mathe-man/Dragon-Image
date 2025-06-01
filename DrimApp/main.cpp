@@ -2,6 +2,7 @@
 #include <string>
 #include <stdio.h>
 #include <cstdint>
+#include <thread>
 #include <bitset>
 #include <cstdlib>
 #include <SDL3/SDL.h>
@@ -36,17 +37,26 @@ void EnableAnsiEscapeCodes() {
 }
 //	<<>>
 
+void OpV(Editor e, SDL_Texture* texture)
+{
+    e.OpenWiewer(texture, true);
+}
+void OpGui(Editor e)
+{
+    e.ExempleImGui();
+}
 
 int main()
 {
     Editor editor;
-    editor.Init();
+    editor.Init("Yo buggy");
 
     // Generate a gradient image vector
     std::vector<uint8_t> gradient_vector;
     gradient_vector = GradientGenerator::GenerateBlueGradientImage(1080, 720);
     
-    SDL_Texture* gradient_texture = editor.GetByteTexture_RGB(gradient_vector, 1080, 720);
+    DrimFile file = DrimFile::CreateDrimFile("file.drim", 1080, 720);
+    file.AddToPixelSection(gradient_vector);
 
-    editor.OpenWiewer(gradient_texture, true);
+    editor.OpenWiewer(editor.GetByteTexture_RGB(gradient_vector, 1080, 720), true);
 }
