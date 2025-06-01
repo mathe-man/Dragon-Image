@@ -39,7 +39,7 @@ void EnableAnsiEscapeCodes() {
 
 void OpV(Editor e, SDL_Texture* texture)
 {
-    e.OpenWiewer(texture, true);
+    e.OpenViewer(texture, true);
 }
 void OpGui(Editor e)
 {
@@ -49,7 +49,7 @@ void OpGui(Editor e)
 int main()
 {
     Editor editor;
-    editor.Init("Yo buggy");
+    editor.Init("Editor");
 
     // Generate a gradient image vector
     std::vector<uint8_t> gradient_vector;
@@ -57,6 +57,4 @@ int main()
     
     DrimFile file = DrimFile::CreateDrimFile("file.drim", 1080, 720);
     file.AddToPixelSection(gradient_vector);
-
-    editor.OpenWiewer(editor.GetByteTexture_RGB(gradient_vector, 1080, 720), true);
 }

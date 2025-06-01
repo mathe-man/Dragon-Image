@@ -22,7 +22,7 @@ public:
     SDL_Texture* GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int width, int height);
     
 
-    bool OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end = false);
+    bool OpenViewer(SDL_Texture* texture, bool destroy_texture_at_end = false);
     bool OpenEditor(DrimFile file, int w = 1080, int h = 720);
     void Free();
 

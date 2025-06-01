@@ -137,10 +137,10 @@ int Debug::DebugEditor()
 										  255, 0, 0, 255,
 										  0, 255, 255, 0, };
 
-	editor.OpenWiewer(editor.GetByteTexture_Gray(big_image, 1080, 720));
-	editor.OpenWiewer(editor.GetByteTexture_Gray(rand_image, 1080, 720));
-	editor.OpenWiewer(editor.GetByteTexture_Gray(image_2by2, 2, 2));
-	editor.OpenWiewer(editor.GetByteTexture_Gray(image_4by4, 4, 4));
+	editor.OpenViewer(editor.GetByteTexture_Gray(big_image, 1080, 720));
+	editor.OpenViewer(editor.GetByteTexture_Gray(rand_image, 1080, 720));
+	editor.OpenViewer(editor.GetByteTexture_Gray(image_2by2, 2, 2));
+	editor.OpenViewer(editor.GetByteTexture_Gray(image_4by4, 4, 4));
 
 
 	/*  === Various RGB images vector ===  */
@@ -166,12 +166,12 @@ int Debug::DebugEditor()
 	std::vector<uint8_t> rgb_red_blue_gradient = GradientGenerator::GenerateGradientImage(540, 360, 255, 0, 0, 0, 0, 255);
 
 
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_2by2, 2, 2));
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_3by2, 3, 2));
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_image_4by4, 4, 4));
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_blue_gradient, 540, 360));
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_yellow_gradient, 540, 360));
-	editor.OpenWiewer(editor.GetByteTexture_RGB(rgb_red_blue_gradient, 540, 360));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_image_2by2, 2, 2));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_image_3by2, 3, 2));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_image_4by4, 4, 4));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_blue_gradient, 540, 360));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_yellow_gradient, 540, 360));
+	editor.OpenViewer(editor.GetByteTexture_RGB(rgb_red_blue_gradient, 540, 360));
 
 	editor.Free();
 

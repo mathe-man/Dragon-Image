@@ -201,7 +201,7 @@ SDL_Texture* Editor::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int w
 }
 
 
-bool Editor::OpenWiewer(SDL_Texture* texture, bool destroy_texture_at_end)
+bool Editor::OpenViewer(SDL_Texture* texture, bool destroy_texture_at_end)
 {
     // Check texture
     if (!texture)
