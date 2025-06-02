@@ -95,7 +95,27 @@ void DrimFile::SetDimensions(uint16_t x_size, uint16_t y_size)
 
 	file->Push({ xs_byte1, xs_byte2, ys_byte1, ys_byte2 }, 6);
 }
-
+void DrimFile::GetDimensions(uint16_t* out_x_size, uint16_t* out_y_size)
+{
+	if (file->binairies.size() < 10)
+		throw std::exception("This drim file as not been initied correctly !");
+	// Get X size
+	*out_x_size = (file->Get(6) << 8) | file->Get(7);
+	// Get Y size
+	*out_y_size = (file->Get(8) << 8) | file->Get(9);
+}
+uint16_t DrimFile::GetXDimensions()
+{
+	if (file->binairies.size() < 10)
+		throw std::exception("This drim file as not been initied correctly !");
+	return (file->Get(6) << 8) | file->Get(7);
+}
+uint16_t DrimFile::GetYDimensions()
+{
+	if (file->binairies.size() < 10)
+		throw std::exception("This drim file as not been initied correctly !");
+	return (file->Get(8) << 8) | file->Get(9);
+}
 
 void DrimFile::WriteTag(std::vector<uint8_t> identifier, std::vector<uint8_t> value)
 {

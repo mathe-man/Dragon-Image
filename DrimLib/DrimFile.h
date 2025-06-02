@@ -21,6 +21,11 @@ public:
 	int GetGlobalVersion();
 	int GetSubVersion();
 
+	void GetDimensions(uint16_t* out_x_size, uint16_t* out_y_size);
+	uint16_t GetXDimensions();
+	uint16_t GetYDimensions();
+	
+
 
 	void WriteTag(std::vector<uint8_t> identifier, std::vector<uint8_t> value);
 	void WriteTag(std::vector<uint8_t> identifier, uint8_t value);

@@ -37,14 +37,6 @@ void EnableAnsiEscapeCodes() {
 }
 //	<<>>
 
-void OpV(Editor e, SDL_Texture* texture)
-{
-    e.OpenViewer(texture, true);
-}
-void OpGui(Editor e)
-{
-    e.ExempleImGui();
-}
 
 int main()
 {
@@ -56,5 +48,6 @@ int main()
     gradient_vector = GradientGenerator::GenerateBlueGradientImage(1080, 720);
     
     DrimFile file = DrimFile::CreateDrimFile("file.drim", 1080, 720);
-    file.AddToPixelSection(gradient_vector);
+    
+	std::cout << static_cast<int>(file.GetXDimensions()) << "x" << static_cast<int>(file.GetYDimensions()) << std::endl;
 }
