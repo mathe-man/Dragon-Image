@@ -14,7 +14,7 @@
 #include "DrimEditor/Editor.h"
 #include "DrimLib/DrimFile.h"
 #include "DrimLib/File.h"
-#include "DrimDebugger/Debug.h";
+#include "DrimDebugger/Debug.h"
 
 
 #ifdef _WIN32
@@ -43,11 +43,15 @@ int main()
     Editor editor;
     editor.Init("Editor");
 
-    // Generate a gradient image vector
-    std::vector<uint8_t> gradient_vector;
-    gradient_vector = GradientGenerator::GenerateBlueGradientImage(1080, 720);
+	std::vector<uint8_t> png_bytes = editor.ConvertSurfaceToBytes(editor.GetPngSurface("test.png"));
     
-    DrimFile file = DrimFile::CreateDrimFile("file.drim", 1080, 720);
-    
-	std::cout << static_cast<int>(file.GetXDimensions()) << "x" << static_cast<int>(file.GetYDimensions()) << std::endl;
+    DrimFile file = DrimFile::OpenDrimFile("converted.drim");
+
+    editor.OpenViewer(editor.GetByteTexture_RGB(file.GetPixelSectionContent(), 512, 512), true);
+
+    /*
+    for (int i = 2; i < png_bytes.size(); i += 3)
+        std::cout   << static_cast<int>(png_bytes[i - 2]) 
+                    << static_cast<int>(png_bytes[i - 1]) 
+                    << static_cast<int>(png_bytes[i - 0]) << std::endl;*/
 }

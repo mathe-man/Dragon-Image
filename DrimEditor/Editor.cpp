@@ -76,6 +76,18 @@ SDL_Texture* Editor::GetPngTexture(std::string path)
 
     return texture;
 }
+SDL_Surface* Editor::GetPngSurface(std::string path)
+{
+    SDL_Surface* surface = IMG_Load(path.c_str());
+    if (!surface) {
+		std::cerr << "IMG_Load error: " << SDL_GetError() << std::endl;
+        return nullptr;
+    }
+
+	return surface;
+}
+
+
 SDL_Texture* Editor::GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int width, int height)
 {
     //  Check parameters
@@ -137,8 +149,6 @@ SDL_Texture* Editor::GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int 
 
     return texture;
 }
-
-
 SDL_Texture* Editor::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int width, int height)
 {
     //  Check parameters
@@ -198,6 +208,39 @@ SDL_Texture* Editor::GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int w
 
 
     return texture;
+}
+
+
+std::vector<uint8_t> Editor::ConvertSurfaceToBytes(SDL_Surface* surface) {
+    std::vector<uint8_t> pixels;
+
+    // Conversion vers un format connu avec 32 bits pour accès facile
+    SDL_Surface* converted = SDL_ConvertSurface(surface, SDL_PIXELFORMAT_RGBA32);
+    if (!converted) {
+        SDL_Log("Erreur de conversion de surface : %s", SDL_GetError());
+        return pixels;
+    }
+
+    int width = converted->w;
+    int height = converted->h;
+    int pitch = converted->pitch; // nombre de bytes par ligne
+    uint8_t* srcPixels = static_cast<uint8_t*>(converted->pixels);
+
+    pixels.resize(width * height * 3); // 3 octets par pixel (R, G, B)
+
+    for (int y = 0; y < height; ++y) {
+        uint8_t* row = srcPixels + y * pitch;
+        for (int x = 0; x < width; ++x) {
+            uint8_t* px = row + x * 4; // RGBA32 : 4 octets par pixel
+            size_t index = (y * width + x) * 3;
+            pixels[index + 0] = px[0]; // R
+            pixels[index + 1] = px[1]; // G
+            pixels[index + 2] = px[2]; // B
+        }
+    }
+
+    SDL_DestroySurface(converted);
+    return pixels;
 }
 
 

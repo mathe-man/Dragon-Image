@@ -18,6 +18,11 @@ public:
     bool Init();
 
     SDL_Texture* GetPngTexture(std::string path);
+    SDL_Surface* GetPngSurface(std::string path);
+
+    std::vector<uint8_t> ConvertSurfaceToBytes(SDL_Surface* surface);
+
+
     SDL_Texture* GetByteTexture_Gray(const std::vector<uint8_t>& bytes, int width, int height);
     SDL_Texture* GetByteTexture_RGB(const std::vector<uint8_t>& bytes, int width, int height);
     
